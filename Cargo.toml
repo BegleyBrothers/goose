@@ -3,13 +3,13 @@ name = "swanling"
 version = "0.0.0"
 authors = ["Begley Brothers Inc <begleybrothers@gmail.com>"]
 edition = "2018"
-description = "A load testing and benchmarking framework inspired by Locust and Drill."
+description = "HTTP load test and benchmark framework inspired by Locust and Drill. Written in Rust."
 homepage = "https://swanling.io"
 documentation = "https://swanling.io"
 repository = "https://github.com/begleybrothers/swanling"
 readme = "README.md"
 categories = ["Simulation"]
-keywords = ["loadtest", "benchmark", "web", "microservice", "framework", "tool"]
+keywords = ["loadtest", "benchmark", "web", "microservice", "framework"]
 license = "Apache-2.0"
 
 [dependencies]
