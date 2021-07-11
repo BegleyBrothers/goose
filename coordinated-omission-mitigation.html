@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Coordinated Omission Mitigation - The Swanling Book</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="HTTP Load testing framework. Inspired by Locust and Drill. Implemented with Rust.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+                <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="overview.html">Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Swanling</li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="simple-example.html"><strong aria-hidden="true">2.</strong> Simple Example</a></li><li class="chapter-item expanded "><a href="scheduling-swanling-task-sets.html"><strong aria-hidden="true">3.</strong> Scheduling Swanling Task Sets</a></li><li class="chapter-item expanded "><a href="defaults.html"><strong aria-hidden="true">4.</strong> Defaults</a></li><li class="chapter-item expanded "><a href="controlling-running-swanling-load-test.html"><strong aria-hidden="true">5.</strong> Controlling Running Swanling Load Test</a></li><li class="chapter-item expanded "><a href="throttling-requests.html"><strong aria-hidden="true">6.</strong> Throttling Requests</a></li><li class="chapter-item expanded "><a href="logging-load-test-errors.html"><strong aria-hidden="true">7.</strong> Logging Load Test Errors</a></li><li class="chapter-item expanded "><a href="logging-load-test-requests.html"><strong aria-hidden="true">8.</strong> Logging Load Test Requests</a></li><li class="chapter-item expanded "><a href="logging-load-test-tasks.html"><strong aria-hidden="true">9.</strong> Logging Load Test Tasks</a></li><li class="chapter-item expanded "><a href="load-test-debug-logging.html"><strong aria-hidden="true">10.</strong> Load Test Debug Logging</a></li><li class="chapter-item expanded "><a href="coordinated-omission-mitigation.html" class="active"><strong aria-hidden="true">11.</strong> Coordinated Omission Mitigation</a></li><li class="chapter-item expanded affix "><li class="part-title">Regatta</li><li class="chapter-item expanded "><a href="distributed-load-test.html"><strong aria-hidden="true">12.</strong> Distributed Load Test</a></li><li class="chapter-item expanded "><a href="rustls.html"><strong aria-hidden="true">13.</strong> RustLS</a></li><li class="chapter-item expanded affix "><li class="part-title">Developers</li><li class="chapter-item expanded "><a href="developers.html"><strong aria-hidden="true">14.</strong> Developers</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="contributors.html">Contributors</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">The Swanling Book</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="coordinated-omission-mitigation"><a class="header" href="#coordinated-omission-mitigation">Coordinated Omission Mitigation</a></h1>
+<p>https://www.scylladb.com/2021/04/22/on-coordinated-omission/</p>
+<p>THIS IS AN EXPERIMENTAL FEATURE THAT IS DISABLED BY DEFAULT. The following documentation is a work in progress, and may currently contain inaccuracies.</p>
+<p>When enabled, Swanling attempts to mitigate the loss of metrics data (Coordinated Omission) caused by an abnormally lengthy response to a request.</p>
+<h2 id="definition"><a class="header" href="#definition">Definition</a></h2>
+<p>To understand Coordinated Omission and how Swanling attempts to mitigate it, it's necessary to understand how Swanling is scheduling requests. Swanling launches one thread per <code>SwanlingUser</code>. Each <code>SwanlingUser</code> is assigned a single <code>SwanlingTaskSet</code>. Each of these <code>SwanlingUser</code> threads then loop repeatedly through all of the <code>SwanlingTasks</code> defined in the assigned <code>SwanlingTaskSet</code>, each of which can involve any number of individual requests. However, at any given time, each <code>SwanlingUser</code> is only making a single request and then asynchronously waiting for the response.</p>
+<p>If something causes the response to a request to take abnormally long, raw Swanling metrics only see this slowdown as affecting a specific request (or one request per <code>SwanlingUser</code>). The slowdown can be caused by a variety of issues, such as a resource bottleneck (on the Swanling client or the web server), garbage collection, a cache stampede, or even a network issue. A real user loading the same web page would see a much larger effect, as all requests to the affected server would stall. Even static assets such as images and scripts hosted on a reliable and fast CDN can be affected, as the web browser won't know to load them until it first loads the HTML from the affected web server. Because Swanling is only making one request at a time per <code>SwanlingUser</code>, it may only see one or very few slow requests and then all other requests resume at normal speed. This results in a bias in the metrics to &quot;ignore&quot; or &quot;hide&quot; the true effect of a slowdown, commonly referred to as Coordinated Omission.</p>
+<h2 id="mitigation"><a class="header" href="#mitigation">Mitigation</a></h2>
+<p>Swanling attempts to mitigate Coordinated Omission by back-filling the metrics with the statistically expected requests. To do this, it tracks the normal &quot;cadence&quot; of each <code>SwanlingUser</code>, timing how long it takes to loop through all <code>SwanlingTasks</code> in the assigned <code>SwanlingTaskSet</code>. By default, Swanling will trigger Coordinated Omission Mitigation if the time to loop through a <code>SwanlingTaskSet</code> takes more than twice as long as the average time of all previous loops. In this case, on the next loop through the <code>SwanlingTaskSet</code> when tracking the actual metrics for each subsequent request in all <code>SwanlingTasks</code> it will also add in statistically generated &quot;requests&quot; with a <code>response_time</code> starting at the unexpectedly long request time, then again with that <code>response_time</code> minus the normal &quot;cadence&quot;, continuing to generate a metric then subtract the normal &quot;cadence&quot; until arriving at the expected <code>response_time</code>. In this way, Swanling is able to estimate the actual effect of a slowdown.</p>
+<p>When Swanling detects an abnormally slow request (one in which the individual request takes longer than the normal <code>user_cadence</code>), it will generate an INFO level message (which will be visible if Swanling was started with the <code>-v</code> run time flag, or written to the log if started with the <code>-g</code> run time flag and <code>--swanling-log</code> is configured). For example:</p>
+<pre><code>13:10:30 [INFO] 11.401s into swanling attack: &quot;GET http://apache/node/1557&quot; [200] took abnormally long (1814 ms), task name: &quot;(Anon) node page&quot;
+13:10:30 [INFO] 11.450s into swanling attack: &quot;GET http://apache/node/5016&quot; [200] took abnormally long (1769 ms), task name: &quot;(Anon) node page&quot;
+</code></pre>
+<p>If the <code>--request-log</code> is enabled, you can get more details, in this case by looking for elapsed times matching the above messages, specifically 1814 and 1769 respectively:</p>
+<pre><code>{&quot;coordinated_omission_elapsed&quot;:0,&quot;elapsed&quot;:11401,&quot;error&quot;:&quot;&quot;,&quot;final_url&quot;:&quot;http://apache/node/1557&quot;,&quot;method&quot;:&quot;Get&quot;,&quot;name&quot;:&quot;(Anon) node page&quot;,&quot;redirected&quot;:false,&quot;response_time&quot;:1814,&quot;status_code&quot;:200,&quot;success&quot;:true,&quot;update&quot;:false,&quot;url&quot;:&quot;http://apache/node/1557&quot;,&quot;user&quot;:2,&quot;user_cadence&quot;:1727}
+{&quot;coordinated_omission_elapsed&quot;:0,&quot;elapsed&quot;:11450,&quot;error&quot;:&quot;&quot;,&quot;final_url&quot;:&quot;http://apache/node/5016&quot;,&quot;method&quot;:&quot;Get&quot;,&quot;name&quot;:&quot;(Anon) node page&quot;,&quot;redirected&quot;:false,&quot;response_time&quot;:1769,&quot;status_code&quot;:200,&quot;success&quot;:true,&quot;update&quot;:false,&quot;url&quot;:&quot;http://apache/node/5016&quot;,&quot;user&quot;:0,&quot;user_cadence&quot;:1422}
+</code></pre>
+<p>In the requests file, you can see that two different user threads triggered Coordinated Omission Mitigation, specifically threads 2 and 0. Both <code>SwanlingUser</code> threads were loading the same <code>SwanlingTask</code> as due to task weighting this is the task loaded the most frequently. Both <code>SwanlingUser</code> threads loop through all <code>SwanlingTasks</code> in a similar amount of time: thread 2 takes on average 1.727 seconds, thread 0 takes on average 1.422 seconds.</p>
+<p>Also if the <code>--request-log</code> is enabled, requests back-filled by Coordinated Omission Mitigation show up in the generated log file, even though they were not actually sent to the server. Normal requests not generated by Coordinated Omission Mitigation have a <code>coordinated_omission_elapsed</code> of 0.</p>
+<p>Coordinated Omission Mitigation is disabled by default. This experimental feature can be enabled by enabling the <code>--co-mitigation</code> run time option when starting Swanling. It can be configured to use the <code>average</code>, <code>minimum</code>, or <code>maximum</code> <code>GoouseUser</code> cadence when backfilling statistics.</p>
+<h2 id="metrics"><a class="header" href="#metrics">Metrics</a></h2>
+<p>When Coordinated Omission Mitigation kicks in, Swanling tracks both the &quot;raw&quot; metrics and the &quot;adjusted&quot; metrics. It shows both together when displaying metrics, first the &quot;raw&quot; (actually seen) metrics, followed by the &quot;adjusted&quot; metrics. As the minimum response time is never changed by Coordinated Omission Mitigation, this column is replacd with the &quot;standard deviation&quot; between the average &quot;raw&quot; response time, and the average &quot;adjusted&quot; response time.</p>
+<p>The following example was &quot;contrived&quot;. The <code>drupal_loadtest</code> example was run for 15 seconds, and after 10 seconds the upstream Apache server was manually &quot;paused&quot; for 3 seconds, forcing some abnormally slow queries. (More specifically, the apache web server was started by running <code>. /etc/apache2/envvars &amp;&amp; /usr/sbin/apache2 -DFOREGROUND</code>, it was &quot;paused&quot; by pressing <code>ctrl-z</code>, and it was resumed three seconds later by typing <code>fg</code>.) In the &quot;PER REQUEST METRICS&quot; Swanling shows first the &quot;raw&quot; metrics&quot;, followed by the &quot;adjusted&quot; metrics:</p>
+<pre><code> ------------------------------------------------------------------------------
+ Name                     |    Avg (ms) |        Min |         Max |     Median
+ ------------------------------------------------------------------------------
+ GET (Anon) front page    |       11.73 |          3 |          81 |         12
+ GET (Anon) node page     |       81.76 |          5 |       3,390 |         37
+ GET (Anon) user page     |       27.53 |         16 |          94 |         26
+ GET (Auth) comment form  |       35.27 |         24 |          50 |         35
+ GET (Auth) front page    |       30.68 |         20 |         111 |         26
+ GET (Auth) node page     |       97.79 |         23 |       3,326 |         35
+ GET (Auth) user page     |       25.20 |         21 |          30 |         25
+ GET static asset         |        9.27 |          2 |          98 |          6
+ POST (Auth) comment form |       52.47 |         43 |          59 |         52
+ -------------------------+-------------+------------+-------------+-----------
+ Aggregated               |       17.04 |          2 |       3,390 |          8
+ ------------------------------------------------------------------------------
+ Adjusted for Coordinated Omission:
+ ------------------------------------------------------------------------------
+ Name                     |    Avg (ms) |    Std Dev |         Max |     Median
+ ------------------------------------------------------------------------------
+ GET (Anon) front page    |      419.82 |     288.56 |       3,153 |         14
+ GET (Anon) node page     |      464.72 |     270.80 |       3,390 |         40
+ GET (Anon) user page     |      420.48 |     277.86 |       3,133 |         27
+ GET (Auth) comment form  |      503.38 |     331.01 |       2,951 |         37
+ GET (Auth) front page    |      489.99 |     324.78 |       2,960 |         33
+ GET (Auth) node page     |      530.29 |     305.82 |       3,326 |         37
+ GET (Auth) user page     |      500.67 |     336.21 |       2,959 |         27
+ GET static asset         |      427.70 |     295.87 |       3,154 |          9
+ POST (Auth) comment form |      512.14 |     325.04 |       2,932 |         55
+ -------------------------+-------------+------------+-------------+-----------
+ Aggregated               |      432.98 |     294.11 |       3,390 |         14
+</code></pre>
+<p>From these two tables, it is clear that there was a statistically significant event affecting the load testing metrics. In particular, note that the standard deviation between the &quot;raw&quot; average and the &quot;adjusted&quot; average is considerably larger than the &quot;raw&quot; average, calling into questing whether or not your load test was &quot;valid&quot;. (The answer to that question depends very much on your specific goals and load test.)</p>
+<p>Swanling also shows multiple percentile graphs, again showing first the &quot;raw&quot; metrics followed by the &quot;adjusted&quot; metrics. The &quot;raw&quot; graph would suggest that less than 1% of the requests for the <code>GET (Anon) node page</code> were slow, and less than 0.1% of the requests for the <code>GET (Auth) node page</code> were slow. However, through Coordinated Omission Mitigation we can see that statistically this would have actually affected all requests, and for authenticated users the impact is visible on &gt;25% of the requests.</p>
+<pre><code> ------------------------------------------------------------------------------
+ Slowest page load within specified percentile of requests (in ms):
+ ------------------------------------------------------------------------------
+ Name                     |    50% |    75% |    98% |    99% |  99.9% | 99.99%
+ ------------------------------------------------------------------------------
+ GET (Anon) front page    |     12 |     15 |     25 |     27 |     81 |     81
+ GET (Anon) node page     |     37 |     43 |     60 |  3,000 |  3,000 |  3,000
+ GET (Anon) user page     |     26 |     28 |     34 |     93 |     94 |     94
+ GET (Auth) comment form  |     35 |     37 |     50 |     50 |     50 |     50
+ GET (Auth) front page    |     26 |     34 |     45 |     88 |    110 |    110
+ GET (Auth) node page     |     35 |     38 |     58 |     58 |  3,000 |  3,000
+ GET (Auth) user page     |     25 |     27 |     30 |     30 |     30 |     30
+ GET static asset         |      6 |     14 |     21 |     22 |     81 |     98
+ POST (Auth) comment form |     52 |     55 |     59 |     59 |     59 |     59
+ -------------------------+--------+--------+--------+--------+--------+-------
+ Aggregated               |      8 |     16 |     47 |     53 |  3,000 |  3,000
+ ------------------------------------------------------------------------------
+ Adjusted for Coordinated Omission:
+ ------------------------------------------------------------------------------
+ Name                     |    50% |    75% |    98% |    99% |  99.9% | 99.99%
+ ------------------------------------------------------------------------------
+ GET (Anon) front page    |     14 |     21 |  3,000 |  3,000 |  3,000 |  3,000
+ GET (Anon) node page     |     40 |     55 |  3,000 |  3,000 |  3,000 |  3,000
+ GET (Anon) user page     |     27 |     32 |  3,000 |  3,000 |  3,000 |  3,000
+ GET (Auth) comment form  |     37 |    400 |  2,951 |  2,951 |  2,951 |  2,951
+ GET (Auth) front page    |     33 |    410 |  2,960 |  2,960 |  2,960 |  2,960
+ GET (Auth) node page     |     37 |    410 |  3,000 |  3,000 |  3,000 |  3,000
+ GET (Auth) user page     |     27 |    420 |  2,959 |  2,959 |  2,959 |  2,959
+ GET static asset         |      9 |     20 |  3,000 |  3,000 |  3,000 |  3,000
+ POST (Auth) comment form |     55 |    390 |  2,932 |  2,932 |  2,932 |  2,932
+ -------------------------+--------+--------+--------+--------+--------+-------
+ Aggregated               |     14 |     42 |  3,000 |  3,000 |  3,000 |  3,000
+</code></pre>
+<p>The Coordinated Omission metrics will also show up in the HTML report generated when Swanling is started with the <code>--report-file</code> run-time option. If Coordinated Omission mitigation kicked in, the HTML report will include both the &quot;raw&quot; metrics and the &quot;adjusted&quot; metrics.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="load-test-debug-logging.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="distributed-load-test.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="load-test-debug-logging.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="distributed-load-test.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
